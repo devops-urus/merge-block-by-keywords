@@ -1,0 +1,26 @@
+name: 'Block Forbidden Keyword'
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  check-for-keyword:
+    name: Check for "zeno"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan PR for keyword
+        run: |
+          if git diff --unified=0 origin/${{ github.base_ref }}...HEAD | grep -q 'zeno'; then
+            echo "❌ Error: Forbidden keyword 'zeno' found in the pull request changes."
+            exit 1
+          else
+            echo "✅ No forbidden keywords found. Check passed."
+          fi
