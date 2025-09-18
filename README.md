@@ -1,1 +1,1 @@
-echo "This is a project update for the zeno feature." > docs.md
+echo "This is a project update for the feature." > docs.md
